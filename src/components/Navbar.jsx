@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom'
 import { Menu, X, Cpu } from 'lucide-react'
 
 const navLinks = [
-  { name: 'Features', href: '#features' },
-  { name: 'Product', href: '#product' },
-  { name: 'Data', href: '#dashboard' },
-  { name: 'App', href: '#app' },
-  { name: 'About', href: '#about' },
+  { name: 'Features', id: '#features' },
+  { name: 'Product', id: '#product' },
+  { name: 'Data', id: '#dashboard' },
+  { name: 'App', id: '#app' },
+  { name: 'About', id: '#about' },
 ]
+
+function scrollTo(id) {
+  const el = document.querySelector(id)
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -41,20 +46,20 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
+              onClick={() => scrollTo(link.id)}
               className="text-sm text-text-muted hover:text-white transition-colors duration-300 tracking-wide"
             >
               {link.name}
-            </a>
+            </button>
           ))}
-          <a
-            href="#product"
+          <button
+            onClick={() => scrollTo('#product')}
             className="text-sm px-5 py-2 rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 transition-all duration-300 tracking-wide"
           >
             Explore
-          </a>
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -69,24 +74,22 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden glass mt-3 mx-4 rounded-2xl p-6 animate-in fade-in slide-in-from-top-4">
+        <div className="md:hidden glass mt-3 mx-4 rounded-2xl p-6">
           {navLinks.map((link) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block py-3 text-text-muted hover:text-white transition-colors text-sm tracking-wide"
+              onClick={() => { scrollTo(link.id); setMobileOpen(false) }}
+              className="block w-full text-left py-3 text-text-muted hover:text-white transition-colors text-sm tracking-wide"
             >
               {link.name}
-            </a>
+            </button>
           ))}
-          <a
-            href="#product"
-            onClick={() => setMobileOpen(false)}
-            className="block mt-4 text-center py-2.5 rounded-full border border-white/15 hover:border-white/30 transition-all text-sm"
+          <button
+            onClick={() => { scrollTo('#product'); setMobileOpen(false) }}
+            className="block w-full mt-4 text-center py-2.5 rounded-full border border-white/15 hover:border-white/30 transition-all text-sm"
           >
             Explore Product
-          </a>
+          </button>
         </div>
       )}
     </nav>

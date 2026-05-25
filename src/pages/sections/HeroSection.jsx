@@ -1,9 +1,14 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowDown, Apple, Smartphone } from 'lucide-react'
+import { ArrowDown, Smartphone } from 'lucide-react'
 import ParticleBackground from '../../components/ParticleBackground'
 
 const titleWords = 'Redefining Smart Wearable Technology'.split(' ')
+
+function scrollTo(id) {
+  const el = document.querySelector(id)
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
 
 export default function HeroSection() {
   const watchRef = useRef(null)
@@ -84,20 +89,20 @@ export default function HeroSection() {
                 transition={{ delay: 1.5, duration: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
-                <a
-                  href="#product"
+                <button
+                  onClick={() => scrollTo('#product')}
                   className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                 >
                   Explore Product
                   <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                </a>
-                <a
-                  href="#app"
+                </button>
+                <button
+                  onClick={() => scrollTo('#app')}
                   className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border border-white/20 text-white font-medium text-sm hover:bg-white/5 hover:border-white/30 transition-all duration-300"
                 >
                   <Smartphone className="w-4 h-4" />
                   Download APP
-                </a>
+                </button>
               </motion.div>
             </motion.div>
           </div>
