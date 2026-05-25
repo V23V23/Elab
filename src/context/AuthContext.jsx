@@ -23,7 +23,6 @@ export function AuthProvider({ children }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
-      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
@@ -55,9 +54,11 @@ export function AuthProvider({ children }) {
     if (error) throw error
   }
 
-  const value = { user, session, loading, signUp, signIn, signOut, resetPassword }
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut, resetPassword }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth() {

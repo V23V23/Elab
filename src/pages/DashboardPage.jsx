@@ -9,9 +9,7 @@ export default function DashboardPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/')
-    }
+    if (!loading && !user) navigate('/')
   }, [user, loading, navigate])
 
   if (loading) {
@@ -22,7 +20,13 @@ export default function DashboardPage() {
     )
   }
 
-  if (!user) return null
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <p className="text-text-dim text-sm">Redirecting...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-black pt-32 pb-24">
